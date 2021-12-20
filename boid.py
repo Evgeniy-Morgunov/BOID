@@ -16,14 +16,8 @@ class boid:
         self.vy = self.vy + self.a[1] * self.t
         self.pos[0] = self.pos[0] + self.vx * self.t
         self.pos[1] = self.pos[1] + self.vy * self.t
-        if self.pos[0] > 1280:
-            self.pos[0] -= 1280
-        if self.pos[1] > 720:
-            self.pos[1] -= 720
-        if self.pos[0] < 0:
-            self.pos[0] = 1
-        if self.pos[1] < 0:
-            self.pos[1] = 1
+        self.pos[0] = self.pos[0] % 1280
+        self.pos[1] = self.pos[1] % 720
         draw_boid(surf, self.pos, self.ang)
 
 def draw_boid(sc, pos, angle):
@@ -41,10 +35,10 @@ clock = pg.time.Clock()
 
 bb = []
 
-for i in range(1000):
-    bang = math.pi / randint(2,6)
+for i in range(100):
+    bang = math.pi / randint(2,8)
     bxy = [randint(100,500), randint(100,500)]
-    bb.append(boid(bxy, bang, [math.pi / 2 - bang, 1/2]))
+    bb.append(boid(bxy, bang, [(math.pi / 2 - bang), 1 / randint(1,4)]))
 
 while True:
 
